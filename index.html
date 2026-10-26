@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f8fc" />
+    <meta name="description" content="走进新疆伊犁喀赞其，了解蓝窗民居的建筑特色与街巷风貌。" />
+    <title>新疆伊犁 · 蓝窗户建筑</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #263b4b;
+            --blue: #286f9c;
+            --blue-deep: #174f73;
+            --blue-light: #a9d4e8;
+            --paper: #f4f8f7;
+            --line: #dce8e9;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: "Microsoft Yahei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+            line-height: 1.8;
+            animation: fade-in 700ms ease-out both;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .masthead {
+            position: relative;
+            overflow: hidden;
+            padding: 58px 20px 52px;
+            background: linear-gradient(115deg, #1c5e82 0%, #3988ac 58%, #77b6c9 100%);
+            color: #fff;
+            text-align: center;
+        }
+
+        .masthead::after {
+            position: absolute;
+            right: max(5vw, calc((100vw - 1100px) / 2));
+            bottom: -64px;
+            width: 190px;
+            height: 190px;
+            border: 1px solid rgb(255 255 255 / 24%);
+            content: "";
+            transform: rotate(45deg);
+        }
+
+        .eyebrow {
+            margin: 0 0 12px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            opacity: 0.82;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            line-height: 1.25;
+        }
+
+        .masthead p:last-child {
+            margin: 14px 0 0;
+            font-size: 1.05rem;
+            opacity: 0.9;
+        }
+
+        main {
+            width: min(1060px, calc(100% - 40px));
+            margin: 36px auto 64px;
+        }
+
+        .slider {
+            position: relative;
+            height: clamp(260px, 47vw, 460px);
+            margin-bottom: 24px;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #5796b3;
+            box-shadow: 0 12px 28px rgb(36 75 92 / 14%);
+        }
+
+        .slide-item {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            color: #fff;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            font-weight: 600;
+            text-shadow: 0 2px 14px rgb(14 42 59 / 40%);
+            opacity: 0;
+            transition: opacity 700ms ease;
+        }
+
+        .slide-item::before,
+        .slide-item::after {
+            position: absolute;
+            content: "";
+            pointer-events: none;
+        }
+
+        .slide-item::before {
+            inset: 12% 16%;
+            border: 1px solid rgb(255 255 255 / 30%);
+            transform: skewY(-8deg);
+        }
+
+        .slide-item::after {
+            right: 18%;
+            bottom: 0;
+            width: 20%;
+            height: 62%;
+            border: 10px solid rgb(255 255 255 / 20%);
+            border-bottom: 0;
+            background: repeating-linear-gradient(90deg, transparent 0 30%, rgb(255 255 255 / 18%) 30% 34%);
+        }
+
+        .slide-item span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .slide-item.active {
+            z-index: 1;
+            opacity: 1;
+        }
+
+        .s1 { background: linear-gradient(145deg, #8bc2ce, #397fa0 62%, #285c78); }
+        .s2 { background: linear-gradient(145deg, #acd3d2, #5695a6 58%, #326b83); }
+        .s3 { background: linear-gradient(145deg, #78b4c3, #367a9c 60%, #244f70); }
+        .s4 { background: linear-gradient(145deg, #9dc7c4, #4e8eaa 56%, #2b5d7a); }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            z-index: 2;
+            display: grid;
+            width: 44px;
+            height: 44px;
+            place-items: center;
+            border: 0;
+            border-radius: 50%;
+            background: rgb(255 255 255 / 88%);
+            color: var(--blue-deep);
+            cursor: pointer;
+            font-size: 1.7rem;
+            line-height: 1;
+            transform: translateY(-50%);
+            transition: background 180ms ease, transform 180ms ease;
+        }
+
+        .slider-btn:hover {
+            background: #fff;
+            transform: translateY(-50%) scale(1.06);
+        }
+
+        .slider-btn:focus-visible,
+        .dot:focus-visible,
+        .music-btn:focus-visible {
+            outline: 3px solid #f2c66d;
+            outline-offset: 3px;
+        }
+
+        .prev { left: 16px; }
+        .next { right: 16px; }
+
+        .dots {
+            position: absolute;
+            right: 0;
+            bottom: 16px;
+            left: 0;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            padding: 0;
+            border: 1px solid rgb(255 255 255 / 85%);
+            border-radius: 50%;
+            background: rgb(255 255 255 / 42%);
+            cursor: pointer;
+        }
+
+        .dot.active { background: #fff; }
+
+        .content-section {
+            margin-top: 22px;
+            padding: clamp(22px, 4vw, 34px);
+            border-top: 1px solid var(--line);
+            background: #fff;
+        }
+
+        .section-kicker {
+            margin: 0 0 4px;
+            color: #64818d;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+        }
+
+        h2 {
+            margin: 0 0 16px;
+            color: var(--blue-deep);
+            font-size: 1.55rem;
+        }
+
+        .content-section p {
+            margin: 0 0 14px;
+        }
+
+        .content-section p:last-child { margin-bottom: 0; }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px 24px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding: 10px 12px 10px 28px;
+            border-left: 2px solid #74aebd;
+            background: #f2f7f6;
+        }
+
+        .feature-list li::before {
+            position: absolute;
+            top: 19px;
+            left: 12px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--blue);
+            content: "";
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .gallery-bg {
+            position: relative;
+            display: grid;
+            height: clamp(150px, 25vw, 240px);
+            place-items: center;
+            overflow: hidden;
+            color: #fff;
+            font-size: 1.12rem;
+            font-weight: 600;
+            text-shadow: 0 2px 8px rgb(10 37 53 / 45%);
+            transition: filter 240ms ease;
+        }
+
+        .gallery-bg::before {
+            position: absolute;
+            inset: 15% 20%;
+            border: 1px solid rgb(255 255 255 / 38%);
+            content: "";
+            transform: skewY(-8deg);
+        }
+
+        .gallery-bg span { position: relative; }
+        .gallery-item:hover .gallery-bg { filter: saturate(1.12) brightness(1.05); }
+        .g1 { background: linear-gradient(140deg, #a7d1d0, #5a9eb1 54%, #356d86); }
+        .g2 { background: linear-gradient(140deg, #c2d9cb, #6a9eaa 56%, #386b7f); }
+        .g3 { background: linear-gradient(140deg, #8bc0c8, #478aa4 55%, #285b76); }
+        .g4 { background: linear-gradient(140deg, #a9ceca, #558fa7 54%, #315d76); }
+
+        .gallery-caption {
+            padding: 11px 12px;
+            color: var(--blue-deep);
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        footer {
+            padding: 24px 20px;
+            background: #204f68;
+            color: rgb(255 255 255 / 88%);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .music-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 5;
+            display: grid;
+            width: 48px;
+            height: 48px;
+            place-items: center;
+            border: 0;
+            border-radius: 50%;
+            background: var(--blue-deep);
+            color: white;
+            box-shadow: 0 5px 16px rgb(23 79 115 / 30%);
+            cursor: pointer;
+            font-size: 1.3rem;
+        }
+
+        .music-btn:hover { background: #123f5d; }
+
+        @media (max-width: 640px) {
+            .masthead { padding: 46px 18px 40px; }
+            main { width: min(100% - 28px, 520px); margin-top: 20px; }
+            .feature-list, .gallery { grid-template-columns: 1fr; }
+            .feature-list { gap: 8px; }
+            .slider-btn { width: 40px; height: 40px; }
+            .music-btn { right: 14px; bottom: 14px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="masthead">
+        <p class="eyebrow">新疆 · 伊犁 · 喀赞其</p>
+        <h1>蓝窗户建筑</h1>
+        <p>走进喀赞其，走进一片蓝色的宁静与浪漫</p>
+    </header>
+
+    <main>
+        <section class="slider" id="slider" aria-label="蓝窗建筑轮播展示">
+            <div class="slide-item s1 active" aria-hidden="false"><span>伊犁蓝窗街巷</span></div>
+            <div class="slide-item s2" aria-hidden="true"><span>伊犁蓝色院落</span></div>
+            <div class="slide-item s3" aria-hidden="true"><span>喀赞其蓝窗建筑</span></div>
+            <div class="slide-item s4" aria-hidden="true"><span>伊犁蓝窗街角</span></div>
+
+            <button class="slider-btn prev" type="button" aria-label="上一张">‹</button>
+            <button class="slider-btn next" type="button" aria-label="下一张">›</button>
+            <div class="dots" aria-label="选择轮播画面">
+                <button class="dot active" type="button" aria-label="第 1 张" aria-current="true"></button>
+                <button class="dot" type="button" aria-label="第 2 张"></button>
+                <button class="dot" type="button" aria-label="第 3 张"></button>
+                <button class="dot" type="button" aria-label="第 4 张"></button>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <p class="section-kicker">PLACE &amp; PEOPLE</p>
+            <h2>建筑简介</h2>
+            <p>伊犁的蓝色窗户建筑，以伊宁喀赞其民俗旅游区最具代表性。这里的民居常以明亮蓝色粉刷门窗与墙面，形成辨识度极高的“蓝色小镇”。蓝窗不仅是视觉特色，也承载着当地对天空、纯净与安宁的文化理解。</p>
+            <p>伊犁地区日照强烈，蓝色门窗能够反射部分日光，帮助建筑降温；同时，蓝窗与白墙、木构雕花、院落绿植相互搭配，形成清新而富有生活气息的街巷风貌。</p>
+        </section>
+
+        <section class="content-section">
+            <p class="section-kicker">ARCHITECTURE DETAILS</p>
+            <h2>建筑特色</h2>
+            <ul class="feature-list">
+                <li>蓝色门窗是建筑视觉中心，常见天蓝、钴蓝、马卡龙蓝等层次。</li>
+                <li>木构门窗带有雕花装饰，体现维吾尔传统民居工艺。</li>
+                <li>多为独门独院，院内搭配拱门、回廊、花草与果树。</li>
+                <li>街巷空间蜿蜒错落，蓝窗白墙具有鲜明的童话感。</li>
+                <li>兼具文化审美与气候适应特点，是伊犁民居的典型代表。</li>
+            </ul>
+        </section>
+
+        <section class="content-section">
+            <p class="section-kicker">A STUDY IN BLUE</p>
+            <h2>蓝色印象</h2>
+            <p>伊犁蓝窗建筑的美，藏在门窗的色彩、院落的层次和街巷的安静氛围里。</p>
+            <div class="gallery">
+                <figure class="gallery-item">
+                    <div class="gallery-bg g1"><span>蓝窗街巷</span></div>
+                    <figcaption class="gallery-caption">蓝窗街巷</figcaption>
+                </figure>
+                <figure class="gallery-item">
+                    <div class="gallery-bg g2"><span>蓝色院落</span></div>
+                    <figcaption class="gallery-caption">蓝色院落</figcaption>
+                </figure>
+                <figure class="gallery-item">
+                    <div class="gallery-bg g3"><span>喀赞其建筑</span></div>
+                    <figcaption class="gallery-caption">喀赞其建筑</figcaption>
+                </figure>
+                <figure class="gallery-item">
+                    <div class="gallery-bg g4"><span>蓝窗街角</span></div>
+                    <figcaption class="gallery-caption">蓝窗街角</figcaption>
+                </figure>
+            </div>
+        </section>
+    </main>
+
+    <footer>新疆伊犁蓝窗户建筑介绍页面</footer>
+
+    <button class="music-btn" id="musicBtn" type="button" aria-label="播放背景音乐" aria-pressed="false">♪</button>
+    <audio id="bgMusic" loop preload="none">
+        <source src="https://music.163.com/song/media/outer/url?id=1816907403.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script>
+        const slides = Array.from(document.querySelectorAll('.slide-item'));
+        const dots = Array.from(document.querySelectorAll('.dot'));
+        const slider = document.getElementById('slider');
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        let current = 0;
+        let timer;
+
+        function showSlide(index) {
+            current = (index + slides.length) % slides.length;
+            slides.forEach((slide, slideIndex) => {
+                const isActive = slideIndex === current;
+                slide.classList.toggle('active', isActive);
+                slide.setAttribute('aria-hidden', String(!isActive));
+                dots[slideIndex].classList.toggle('active', isActive);
+                if (isActive) {
+                    dots[slideIndex].setAttribute('aria-current', 'true');
+                } else {
+                    dots[slideIndex].removeAttribute('aria-current');
+                }
+            });
+        }
+
+        function moveSlide(step) {
+            showSlide(current + step);
+        }
+
+        function resetTimer() {
+            window.clearInterval(timer);
+            timer = window.setInterval(() => moveSlide(1), 5000);
+        }
+
+        slider.querySelector('.prev').addEventListener('click', () => {
+            moveSlide(-1);
+            resetTimer();
+        });
+        slider.querySelector('.next').addEventListener('click', () => {
+            moveSlide(1);
+            resetTimer();
+        });
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                resetTimer();
+            });
+        });
+        slider.addEventListener('mouseenter', () => window.clearInterval(timer));
+        slider.addEventListener('mouseleave', resetTimer);
+        resetTimer();
+
+        musicBtn.addEventListener('click', async () => {
+            if (music.paused) {
+                try {
+                    await music.play();
+                } catch {
+                    musicBtn.setAttribute('aria-label', '音乐暂时无法播放');
+                }
+            } else {
+                music.pause();
+            }
+        });
+
+        music.addEventListener('play', () => {
+            musicBtn.textContent = 'Ⅱ';
+            musicBtn.setAttribute('aria-label', '暂停背景音乐');
+            musicBtn.setAttribute('aria-pressed', 'true');
+        });
+        music.addEventListener('pause', () => {
+            musicBtn.textContent = '♪';
+            musicBtn.setAttribute('aria-label', '播放背景音乐');
+            musicBtn.setAttribute('aria-pressed', 'false');
+        });
+    </script>
+</body>
+</html>
